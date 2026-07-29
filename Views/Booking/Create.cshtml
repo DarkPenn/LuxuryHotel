@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Đặt phòng";
+    var kh = ViewBag.KhachHang as LuxuryHotel.Models.KhachHang;
+    var phong = ViewBag.Phong as LuxuryHotel.Models.Phong;
+    var ks = ViewBag.KhachSan as LuxuryHotel.Models.KhachSan;
+
+    // Tách Họ và Tên nếu có
+    string ten = "";
+    string ho = "";
+    if (kh != null && !string.IsNullOrEmpty(kh.TenKH))
+    {
+        var parts = kh.TenKH.Trim().Split(' ');
+        if (parts.Length > 1)
+        {
+            ho = parts[0];
+            ten = string.Join(" ", parts.Skip(1));
+        }
+        else
+        {
+            ten = kh.TenKH;
+        }
+    }
+}
+
+<div class="container my-5" style="max-width: 850px;">
+
+    <!-- Hiển thị thông báo lỗi Validation nếu có -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger rounded-3 mb-4">
+            <ul class="mb-0">
+                @foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+    <form asp-controller="Booking" asp-action="Create" method="post">
+        <input type="hidden" name="maKS" value="@(ks?.MaKS ?? "KS01")" />
+        <input type="hidden" name="maPhong" value="@(phong?.MaPhong ?? "P101")" />
+
+        <!-- KHUNG 1: Ai là khách chính? -->
+        <div class="border border-dark rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold mb-1">Ai là khách chính?</h5>
+            <p class="text-danger extra-small mb-3">*Mục bắt buộc</p>
+
+            <div class="row g-3">
+                <!-- Tên * -->
+                <div class="col-md-6">
+                    <input type="text" name="ten" class="form-control custom-input" placeholder="Tên *" value="@ten" required>
+                </div>
+                <!-- Họ * -->
+                <div class="col-md-6">
+                    <input type="text" name="ho" class="form-control custom-input" placeholder="Họ (VD: Nguyen) *" value="@ho" required>
+                </div>
+                <!-- Email ID * -->
+                <div class="col-md-6">
+                    <input type="email" name="email" class="form-control custom-input" placeholder="Email ID *" value="@(kh?.Email)" required>
+                </div>
+                <!-- Quốc gia * -->
+                <div class="col-md-6">
+                    <select name="quocGia" class="form-select custom-input" required>
+                        <option value="Việt Nam" selected>Việt Nam</option>
+                        <option value="Thái Lan">Thái Lan</option>
+                        <option value="Mỹ">Mỹ</option>
+                        <option value="Hàn Quốc">Hàn Quốc</option>
+                        <option value="Nhật Bản">Nhật Bản</option>
+                    </select>
+                </div>
+                <!-- Số điện thoại di động * -->
+                <div class="col-md-6">
+                    <input type="tel" name="phone" class="form-control custom-input" placeholder="Số điện thoại di động*" value="@(kh?.Phone)" required>
+                </div>
+            </div>
+
+            <p class="text-secondary extra-small mt-3 mb-0">
+                Vui lòng đảm bảo thông tin liên hệ của quý khách là chính xác. Chúng tôi sẽ sử dụng thông tin đó để gửi xác nhận đặt chỗ và mọi thông báo nhắc nhở để hỗ trợ quý khách hoàn tất đặt chỗ.
+            </p>
+        </div>
+
+        <!-- KHUNG 2: Yêu cầu đặc biệt -->
+        <div class="border border-dark rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold mb-1">Yêu cầu đặc biệt</h5>
+            <p class="text-secondary extra-small mb-3">Hãy cho chúng tôi biết về sở thích của quý khách. Phụ thuộc vào tình trạng thực tế.</p>
+
+            <div>
+                <textarea name="note" class="form-control custom-input" rows="4" placeholder="Note *"></textarea>
+            </div>
+        </div>
+
+        <!-- KHUNG 3: Quyền lợi phòng miễn phí -->
+        <div class="border border-dark rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold mb-3">Quyền lợi phòng miễn phí</h5>
+            <ul class="list-unstyled mb-0 fw-bold fs-5 d-flex flex-column gap-3">
+                <li>• Bữa sáng miễn phí</li>
+                <li>• Wifi miễn phí</li>
+                <li>• Bãi đỗ xe miễn phí</li>
+            </ul>
+        </div>
+
+        <!-- BUTTON: Đặt phòng -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-secondary w-100 rounded-pill py-2 fw-bold text-dark fs-5 custom-submit-btn">
+                Đặt phòng
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .extra-small {
+        font-size: 0.82rem;
+    }
+
+    .custom-input {
+        border: 1px solid #000 !important;
+        border-radius: 8px !important;
+        padding: 10px 14px;
+        font-size: 0.95rem;
+    }
+
+        .custom-input:focus {
+            box-shadow: none;
+            border-color: #005c9e !important;
+        }
+
+    .custom-submit-btn {
+        background-color: #d1d5db !important;
+        border: 1px solid #000 !important;
+        transition: background-color 0.2s ease;
+    }
+
+        .custom-submit-btn:hover {
+            background-color: #9ca3af !important;
+            color: #fff !important;
+        }
+</style>

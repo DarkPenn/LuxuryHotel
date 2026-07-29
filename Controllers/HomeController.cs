@@ -21,6 +21,7 @@ namespace LuxuryHotel.Controllers
         }
 
         // Action lấy danh sách khách sạn
+        [Route("Rooms")]
         public async Task<IActionResult> Rooms(string? city)
         {
             var query = _context.KhachSans
@@ -29,7 +30,7 @@ namespace LuxuryHotel.Controllers
 
             if (!string.IsNullOrEmpty(city))
             {
-                // Sửa thành .DiaDiem cho đúng với Model KhachSan
+                // Lọc theo thuộc tính DiaDiem của Model KhachSan
                 query = query.Where(k => k.DiaDiem.Contains(city));
             }
 
@@ -38,6 +39,27 @@ namespace LuxuryHotel.Controllers
             ViewBag.SelectedCity = city ?? "Tất cả khu vực";
 
             return View(khachSans);
+        }
+
+        // Action lấy thông tin chi tiết khách sạn và danh sách phòng tương ứng
+        [Route("Details/{id}")]
+        public async Task<IActionResult> Details(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var khachSan = await _context.KhachSans
+                .Include(k => k.Phongs)
+                .FirstOrDefaultAsync(k => k.MaKS == id);
+
+            if (khachSan == null)
+            {
+                return NotFound();
+            }
+
+            return View(khachSan);
         }
 
         public IActionResult Privacy()

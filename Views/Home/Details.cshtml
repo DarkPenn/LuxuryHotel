@@ -1,0 +1,291 @@
+﻿@model LuxuryHotel.Models.KhachSan
+
+@{
+    ViewData["Title"] = "Chi tiết - " + Model.TenKS;
+
+    // Tự động gán tên hiển thị đại diện tương ứng theo từng mã khách sạn (khớp 100% với Rooms.cshtml)
+    string tenPhongDisplay = itemTitle(Model.MaKS, Model.Phongs);
+
+    string itemTitle(string maKS, IEnumerable<LuxuryHotel.Models.Phong>? phongs)
+    {
+        if (maKS == "KS01") return "Phòng Deluxe Hướng Biển";
+        if (maKS == "KS02") return "Phòng Superior Double";
+        if (maKS == "KS03") return "Phòng Executive Suite";
+        if (maKS == "KS04") return "Phòng Premium King";
+        if (maKS == "KS05") return "Phòng Family Suite";
+        if (maKS == "KS06") return "Phòng Luxury Ocean View";
+        if (maKS == "KS07") return "Phòng President Suite";
+        if (maKS == "KS08") return "Phòng Standard Double";
+
+        return (phongs != null && phongs.Any()) ? phongs.First().LoaiPhong : "Phòng Tiêu Chuẩn";
+    }
+
+    // Cấu hình danh sách 7 ảnh linh hoạt cho từng khách sạn (1 ảnh lớn + 6 ảnh nhỏ)
+    List<string> images = new List<string>();
+
+    if (Model.MaKS == "KS01") // Đà Nẵng (KS01)
+    {
+        images.Add("https://pix8.agoda.net/hotelImages/533079/0/9b655c1b0ada7a5e76651ab4e506dc21.png?ce=3&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/891230135.jpg?k=f883fc032df37a18cc4d70314bf726548b25a5ced47e52d5ffcbaf18d8dc2805&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/533/533079/533079_16092916470047121712.jpg?ca=6&ce=1&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/533079/0/314f128c34fdfe9c7a3d62be2cf2e081.jpg?ca=20&ce=0&s=1024x");
+        images.Add("https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/21757922.jpg?k=3350dd00b2d0cb5df9b2be7c0b715657703d58597deb0f1a55bd465fdeb0b85a&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/533079/0/0501aa05fadb7463c9c5b710fa9503a0.png?ce=3&s=1024x");
+    }
+    else if (Model.MaKS == "KS02") // Vũng Tàu (KS02)
+    {
+        images.Add("https://pix8.agoda.net/hotelImages/89090330/0/36acced664c5db2984ae2779a20570e3.jpg?ce=3&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/89090330/1401753542/c5040c4e2b76c944fcfbcf71f61dca00.jpg?ce=3&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/89090330/1401753545/74bead730ad4e45b1a1e94f25706a0e0.jpg?ce=3&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/877870825.jpg?k=0871e1a5352725835da47ccd15804b62485754f61b7245518511e73ea1de7316&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/89090330/1401753546/a5592be951eb42d88e29297b2b7a9ef4.jpg?ce=3&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/89090330/1401753546/995f00a1d948ea29f9b1711bbe653b60.jpg?ce=3&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/89090330/0/9101ebb4ebda6b1114d0da0c55563ba3.jpg?ce=3&s=1024x");
+    }
+    else if (Model.MaKS == "KS03") // Nha Trang (KS03)
+    {
+        images.Add("https://pix8.agoda.net/hotelImages/1370938/9429410/bdf358280db48d5e196034e8a0abac4a.jpeg?ce=0&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/152624637.jpg?k=49fbf084d2196ca99bf595cdc2f035a99d5ab3186dc8cc0fbd439f49afd18edd&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/property/77014050/0/8879040e01ee25d2fec6879952679671.jpeg?ce=2&s=1024x");
+        images.Add("https://pix8.agoda.net/property/77014050/0/0515a331aeeeb0592a5e530bf01b6893.jpeg?ce=2&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/152622883.jpg?k=ce14be1303483fd9461c77b19be1d76f4e4f73dc51f4f3e9c9f39b5ed8d9b268&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/property/1370938/0/a862c78c57a177366363df97cbbdb51f.jpeg?ce=3&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/1370938/-1/abf7e9e830a08808e151439ce49cdd60.jpg?ca=8&ce=1&s=1024x");
+    }
+    else if (Model.MaKS == "KS04" || Model.MaKS == "KS08" || Model.DiaDiem.Contains("Hồ Chí Minh") || Model.DiaDiem.Contains("TP.HCM")) // TP.HCM
+    {
+        images.Add(Model.MaKS == "KS04" ? "https://pix8.agoda.net/hotelImages/62697262/0/5d00a964350ae460a1be0d0bf12148c3.jpg?ce=3&s=1024x" : "https://pix8.agoda.net/hotelImages/788687/-1/6750b024c8d90cbfdff5846f5c925933.jpg?ca=17&ce=1&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/828802077.jpg?k=d12619b2cfd327aee55787cd8aef3ec35f5fc8a139c8af174860046ba7397886&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/62697262/0/6815ca6b1e7ba2aa7b583d2e1bcb56a5.jpg?ce=3&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/623137526.jpg?k=41eb3d907092d303ec5a5e244fbd8b4458bda5120269d180bba82b80e35d32d1&o=&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/828824337.jpg?k=3e88e2c92b057e9937a69c88cca127c4888572a2bfb14cfd6a18401be8470f39&o=&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/62697262/0/1b5becd7e64e544b76b71b67135df179.jpg?ce=2&s=1024x");
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/590577821.jpg?k=1b9546d055333b76d2b1397b9af0d031dba21116af17950e463d800309d90a8f&o=&s=1024x");
+    }
+    else if (Model.MaKS == "KS05")
+    {
+        images.Add("https://pix8.agoda.net/hotelImages/31965669/0/1ba6c538f568d0be2a371ae9d4a8e059.png?ca=29&ce=0&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/31965669/0/d07a1cf12584c5fec3c100627fce4c87.png?ca=29&ce=0&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/31965669/0/9a9a89e46e6475e4ee93ceadbee6923c.png?ca=29&ce=0&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/31965669/512466578/3369b647d56c7c9179dac8c7756a9a19.png?ca=29&ce=0&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/31965669/512466578/a99b50ede6a407a02dc0fb3b89def355.jpg?ca=29&ce=0&s=1024x");
+        images.Add("https://pix8.agoda.net/geo/poi/1442914/2_1442914_04.jpg?ca=7&ce=1&s=1024x");
+        images.Add("https://pix8.agoda.net/geo/poi/100212/2_100212.jpg?ca=6&ce=1&s=1024x");
+    }
+    else if (Model.MaKS == "KS06")
+    {
+        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/d8183602be2644495e78b139af441f95.jpg?ca=15&ce=1&s=1024x");
+        images.Add("https://pix8.agoda.net/property/13486290/0/6d9bdcbf965829cf9ddecc9e7a6c2c3b.jpeg?s=1024x");
+        images.Add("https://pix8.agoda.net/property/13486290/0/10240af479e54eb39eec1e40e0e182c1.jpeg?s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/9460013311412a1b7bfa2530d0e90b8d.jpg?ca=10&ce=1&s=1024x");
+        images.Add("https://pix8.agoda.net/property/13486290/0/90dc9d2a0776950a5ffe6e437f4e3ea8.jpeg?ce=3&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/694c7a228ef4956fe63093acffce4cf7.jpg?ca=10&ce=1&s=1024x");
+        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/cddeeb316c4cf548094f2385d19a2f50.jpg?ca=10&ce=1&s=1024x");
+    }
+    else if (Model.MaKS == "KS07")
+    {
+        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/481263414.jpg?k=1ea58937c9a1fc849bde0712ba6807b12f9b61dc340cbcbd843dd84d3d7f0474&o=&s=1024x");
+        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263463.jpg?k=f7a1f57cf99db0bdaff47c5dce0859418cbef740c5c8245b2356bebbe3187414&o=");
+        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263474.jpg?k=cc1a67ab9aba5ca75ff3182b074106ceb4f28da533219e5704c037649068edda&o=");
+        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263492.jpg?k=256ea142d9a3e19a0b8b375c1a380d6c8b36ea7afd681d5d16e86166b003dd2b&o=");
+        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263488.jpg?k=8fbc3edc59bbf00ff37feb5e51f812689edee2251b9df6d645def69b93a2eacf&o=");
+        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263479.jpg?k=cbbb162cde9242a36e53cfc370aaf3e16b5954c0ab76bf0c7b17c71cd5f4c249&o=");
+        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263466.jpg?k=7f18b0d7d391fce8a6aa6c49359e514a8191a1d203deab9318d8ffbc20c6eb45&o=");
+    }
+    else
+    {
+        // Bộ ảnh mặc định
+        for (int i = 0; i < 7; i++) images.Add("https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600");
+    }
+}
+
+<div class="container my-4">
+    <!-- 1. Lưới hình ảnh khách sạn (1 Ảnh lớn bên trái + 6 Ảnh nhỏ bên phải) -->
+    <div class="row g-2 mb-4">
+        <!-- 1 Ảnh lớn -->
+        <div class="col-md-6">
+            <img src="@images[0]"
+                 class="img-fluid rounded-3 w-100 h-100 object-fit-cover"
+                 style="min-height: 320px; max-height: 380px;"
+                 alt="@tenPhongDisplay"
+                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800';">
+        </div>
+        <!-- 6 Ảnh nhỏ (2 hàng x 3 cột) -->
+        <div class="col-md-6">
+            <div class="row g-2">
+                @for (int i = 1; i <= 6; i++)
+                {
+                    <div class="col-4">
+                        <img src="@images[i]"
+                             class="img-fluid rounded-2 w-100 object-fit-cover"
+                             style="height: 185px;"
+                             alt="Góc ảnh phòng @i"
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=400';">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Tên Phòng Hiển Thị Chính -->
+    <h3 class="fw-bold mb-4">@tenPhongDisplay (@Model.TenKS)</h3>
+
+    <!-- 2. Khung Điểm nổi bật nhất -->
+    <div class="border border-dark rounded-3 p-3 mb-4 bg-white">
+        <h6 class="fw-bold mb-2">Điểm nổi bật nhất</h6>
+        <p class="mb-1 small">
+            <i class="bi bi-geo-alt-fill text-primary"></i> <strong>Vị trí lý tưởng:</strong> @Model.DescriptionKS
+        </p>
+        <p class="mb-1 small"><strong>Spa nổi bật</strong></p>
+        <p class="mb-0 small"><strong>Tầm nhìn đẹp</strong></p>
+    </div>
+
+    <!-- 3. Khung Cơ sở vật chất (Dạng lưới Grid chia đều) -->
+    <div class="border border-dark rounded-3 p-3 mb-4 bg-white">
+        <h6 class="fw-bold mb-3">Cơ sở vật chất</h6>
+        <div class="row g-3 small fw-bold">
+            <div class="col-md-3 col-6">Bãi biển riêng</div>
+            <div class="col-md-3 col-6">Miễn phí Wi-Fi</div>
+            <div class="col-md-3 col-6">Bể bơi</div>
+            <div class="col-md-3 col-6">Đỗ xe miễn phí</div>
+            <div class="col-md-3 col-6">Spa</div>
+            <div class="col-md-3 col-6">Bàn tiếp tân [24 giờ]</div>
+            <div class="col-md-3 col-6">Phòng tập</div>
+            <div class="col-md-3 col-6">Nhà hàng</div>
+        </div>
+    </div>
+
+    <!-- 4, 5 & 6. Phân hệ chọn phòng -->
+    @if (Model.Phongs != null && Model.Phongs.Any())
+    {
+        @foreach (var phong in Model.Phongs)
+        {
+            <div class="border border-dark rounded-3 mb-4 bg-white overflow-hidden">
+                <div class="row g-0 align-items-center">
+                    <!-- Chi tiết ảnh phòng -->
+                    <div class="col-md-3">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500"
+                             class="img-fluid w-100 h-100 object-fit-cover"
+                             style="min-height: 190px;"
+                             alt="@phong.LoaiPhong">
+                    </div>
+
+                    <!-- Tiêu chuẩn phòng -->
+                    <div class="col-md-4 p-3 border-end border-dark">
+                        <h6 class="fw-bold mb-2">Tiêu chuẩn phòng: @phong.LoaiPhong</h6>
+                        <p class="mb-1 extra-small text-muted"><i class="bi bi-person-fill"></i> @phong.SoNguoi Người lớn</p>
+                        <ul class="list-unstyled extra-small mb-0 text-dark">
+                            <li>• Có ăn sáng</li>
+                            <li>• Quầy bar mini miễn phí</li>
+                            <li>• Vào hồ bơi miễn phí</li>
+                            <li>• Phòng tập</li>
+                            <li>• Wifi miễn phí</li>
+                        </ul>
+                    </div>
+
+                    <!-- Giá / Đêm -->
+                    <div class="col-md-2 p-3 text-center border-end border-dark">
+                        <span class="d-block fw-bold small mb-2">Giá / Đêm</span>
+                        <small class="text-danger d-block extra-small fw-bold">Giá từ</small>
+                        <span class="text-danger fw-bold fs-5">
+                            @(Model.MaKS == "KS04" || Model.MaKS == "KS08" || Model.DiaDiem.Contains("Hồ Chí Minh") || Model.DiaDiem.Contains("TP.HCM")
+                                ? "Liên hệ"
+                                : phong.Gia.ToString("N0") + " VND")
+                        </span>
+                    </div>
+
+                    <!-- Khung chọn số lượng phòng & Button [Đặt phòng] -->
+                    <div class="col-md-3 p-3 text-center d-flex flex-column align-items-center justify-content-center gap-3">
+                        <!-- Chọn số lượng phòng -->
+                        <div class="dropdown">
+                            <select class="form-select rounded-pill text-center custom-select-box px-3 py-1" style="width: 170px;">
+                                <option value="1" selected>Số lượng phòng ⌵</option>
+                                <option value="1">1 Phòng</option>
+                                <option value="2">2 Phòng</option>
+                                <option value="3">3 Phòng</option>
+                            </select>
+                        </div>
+
+                        <!-- Button Đặt phòng trỏ sang BookingController -->
+                        <a asp-controller="Booking"
+                           asp-action="Create"
+                           asp-route-maKS="@Model.MaKS"
+                           asp-route-maPhong="@phong.MaPhong"
+                           class="btn btn-secondary rounded-pill px-4 py-2 custom-btn-booking d-flex align-items-center justify-content-center"
+                           style="width: 170px; background-color: #d1d5db; color: #000; border: none; text-decoration: none;">
+                            Đặt phòng
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <!-- Trường hợp chưa có thông tin phòng trong DB -->
+        <div class="border border-dark rounded-3 mb-4 bg-white overflow-hidden">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-3">
+                    <img src="@images[0]" class="img-fluid w-100 h-100 object-fit-cover" style="min-height: 190px;" alt="Phòng mẫu">
+                </div>
+                <div class="col-md-4 p-3 border-end border-dark">
+                    <h6 class="fw-bold mb-2">Tiêu chuẩn phòng: @tenPhongDisplay</h6>
+                    <p class="mb-1 extra-small text-muted"><i class="bi bi-person-fill"></i> 2 Người lớn</p>
+                    <ul class="list-unstyled extra-small mb-0 text-dark">
+                        <li>• Có ăn sáng</li>
+                        <li>• Quầy bar mini miễn phí</li>
+                        <li>• Vào hồ bơi miễn phí</li>
+                        <li>• Phòng tập</li>
+                        <li>• Wifi miễn phí</li>
+                    </ul>
+                </div>
+                <div class="col-md-2 p-3 text-center border-end border-dark">
+                    <span class="d-block fw-bold small mb-2">Giá / Đêm</span>
+                    <small class="text-danger d-block extra-small fw-bold">Giá từ</small>
+                    <span class="text-danger fw-bold fs-5">
+                        @(Model.MaKS == "KS04" || Model.MaKS == "KS08" || Model.DiaDiem.Contains("Hồ Chí Minh") || Model.DiaDiem.Contains("TP.HCM") ? "Liên hệ" : "1.500.000 VND")
+                    </span>
+                </div>
+                <div class="col-md-3 p-3 text-center d-flex flex-column align-items-center justify-content-center gap-3">
+                    <select class="form-select rounded-pill text-center custom-select-box px-3 py-1" style="width: 170px;">
+                        <option value="1" selected>Số lượng phòng ⌵</option>
+                        <option value="1">1 Phòng</option>
+                        <option value="2">2 Phòng</option>
+                        <option value="3">3 Phòng</option>
+                    </select>
+                    <a asp-controller="Booking"
+                       asp-action="Create"
+                       asp-route-maKS="@Model.MaKS"
+                       asp-route-maPhong="P101"
+                       class="btn btn-secondary rounded-pill px-4 py-2 custom-btn-booking d-flex align-items-center justify-content-center"
+                       style="width: 170px; background-color: #d1d5db; color: #000; border: none; text-decoration: none;">
+                        Đặt phòng
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .extra-small {
+        font-size: 0.85rem;
+    }
+
+    .custom-select-box {
+        border: 1px solid #000;
+        font-size: 0.9rem;
+        background-color: #fff;
+    }
+
+    .custom-btn-booking {
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+    }
+
+        .custom-btn-booking:hover {
+            background-color: #9ca3af !important;
+            color: #fff;
+        }
+</style>

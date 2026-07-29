@@ -43,6 +43,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+
+    <!-- Thư viện SweetAlert2 hiển thị Popup -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Tự động bật Popup nếu Đặt phòng thành công -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+                Swal.fire({
+                    title: 'Đặt phòng thành công!',
+                    text: '@Html.Raw(TempData["SuccessMessage"])',
+                    icon: 'success',
+                    confirmButtonText: 'Đồng ý',
+                    confirmButtonColor: '#005c9e'
+                });
+        </script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)</body>
 </html>
