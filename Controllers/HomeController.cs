@@ -20,6 +20,46 @@ namespace LuxuryHotel.Controllers
             return View();
         }
 
+        // Action Tìm kiếm & Lọc Khách Sạn (Hiển thị giao diện theo Hình 2)
+        public async Task<IActionResult> RoomSearch(
+            string? location,
+            DateTime? checkIn,
+            DateTime? checkOut,
+            bool wifiFree = false,
+            bool giaRe = false,
+            bool danhGiaCao = false,
+            bool anSang = false)
+        {
+            var query = _context.KhachSans
+                .Include(k => k.Phongs)
+                .AsQueryable();
+
+            // 1. Lọc theo địa điểm hoặc tên khách sạn
+            if (!string.IsNullOrWhiteSpace(location))
+            {
+                query = query.Where(k => k.DiaDiem.Contains(location) || k.TenKS.Contains(location));
+            }
+
+            var resultList = await query.ToListAsync();
+
+            // 2. Bộ lọc phụ (Giá rẻ)
+            if (giaRe)
+            {
+                resultList = resultList.OrderBy(k => k.Phongs != null && k.Phongs.Any() ? k.Phongs.Min(p => p.Gia) : 0).ToList();
+            }
+
+            // Truyền thông số sang View
+            ViewBag.Location = string.IsNullOrWhiteSpace(location) ? "Tất cả địa điểm" : location;
+            ViewBag.CheckIn = checkIn?.ToString("yyyy-MM-dd");
+            ViewBag.CheckOut = checkOut?.ToString("yyyy-MM-dd");
+            ViewBag.WifiFree = wifiFree;
+            ViewBag.GiaRe = giaRe;
+            ViewBag.DanhGiaCao = danhGiaCao;
+            ViewBag.AnSang = anSang;
+
+            return View(resultList);
+        }
+
         // Action lấy danh sách khách sạn
         [Route("Rooms")]
         public async Task<IActionResult> Rooms(string? city)
@@ -30,7 +70,6 @@ namespace LuxuryHotel.Controllers
 
             if (!string.IsNullOrEmpty(city))
             {
-                // Lọc theo thuộc tính DiaDiem của Model KhachSan
                 query = query.Where(k => k.DiaDiem.Contains(city));
             }
 

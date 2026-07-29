@@ -1,0 +1,141 @@
+﻿@model IEnumerable<LuxuryHotel.Models.KhachSan>
+
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm khách sạn";
+}
+
+<!-- Header Bar Tìm Kiếm Ngang -->
+<div class="container-fluid px-0 mb-4">
+    <div class="p-3 text-white" style="background-color: #005c9e;">
+        <form asp-controller="Home" asp-action="RoomSearch" method="get" class="row g-2 align-items-center justify-content-center">
+            <div class="col-md-5">
+                <input type="text" name="location" class="form-control rounded-pill px-4" placeholder="Nhập điểm du lịch hoặc tên khách sạn" value="@ViewBag.Location">
+            </div>
+            <div class="col-md-4">
+                <input type="date" name="checkIn" class="form-control rounded-pill px-3" value="@ViewBag.CheckIn">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-light rounded-pill w-100 fw-bold text-dark">Tìm Kiếm</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="row">
+        <!-- CỘT BÊN TRÁI: BỘ LỌC TÌM KIẾM (Hình 2) -->
+        <div class="col-md-3">
+            <form asp-controller="Home" asp-action="RoomSearch" method="get" id="filterForm">
+                <input type="hidden" name="location" value="@ViewBag.Location" />
+
+                <h5 class="fw-bold mb-3">Bộ lọc tìm kiếm</h5>
+
+                <!-- Khung Chọn Ngày -->
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <input type="date" name="checkIn" class="form-control form-control-sm bg-light" value="@ViewBag.CheckIn">
+                    <span>—</span>
+                    <input type="date" name="checkOut" class="form-control form-control-sm bg-light" value="@ViewBag.CheckOut">
+                </div>
+
+                <!-- Bộ lọc theo mong muốn -->
+                <h6 class="fw-bold mb-3">Bộ lọc theo mong muốn</h6>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="wifiFree" value="true" id="wifiFree" @(ViewBag.WifiFree == true ? "checked" : "") onchange="this.form.submit()">
+                    <label class="form-check-label fw-bold" for="wifiFree">Wifi Free</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="giaRe" value="true" id="giaRe" @(ViewBag.GiaRe == true ? "checked" : "") onchange="this.form.submit()">
+                    <label class="form-check-label fw-bold" for="giaRe">Giá Rẻ</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="danhGiaCao" value="true" id="danhGiaCao" @(ViewBag.DanhGiaCao == true ? "checked" : "") onchange="this.form.submit()">
+                    <label class="form-check-label fw-bold" for="danhGiaCao">Đánh giá cao</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="anSang" value="true" id="anSang" @(ViewBag.AnSang == true ? "checked" : "") onchange="this.form.submit()">
+                    <label class="form-check-label fw-bold" for="anSang">Ăn sáng</label>
+                </div>
+            </form>
+        </div>
+
+        <!-- CỘT BÊN PHẢI: DANH SÁCH KHÁCH SẠN (Hình 2) -->
+        <div class="col-md-9">
+            <h5 class="fw-bold mb-4">@(Model?.Count() ?? 0) khách sạn ở @ViewBag.Location</h5>
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    decimal minPrice = item.Phongs != null && item.Phongs.Any() ? item.Phongs.Min(p => p.Gia) : 0;
+                    string priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "105.000 VND";
+
+                    // Gán ảnh tương ứng theo từng Mã Khách Sạn
+                    string mainImg = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600";
+                    if (item.MaKS == "KS01") mainImg = "https://pix8.agoda.net/hotelImages/533079/0/9b655c1b0ada7a5e76651ab4e506dc21.png?ce=3&s=1024x";
+                    else if (item.MaKS == "KS02") mainImg = "https://pix8.agoda.net/hotelImages/89090330/0/36acced664c5db2984ae2779a20570e3.jpg?ce=3&s=1024x";
+                    else if (item.MaKS == "KS03") mainImg = "https://pix8.agoda.net/hotelImages/1370938/9429410/bdf358280db48d5e196034e8a0abac4a.jpeg?ce=0&s=1024x";
+
+                    <div class="card mb-4 border-0 shadow-sm rounded-3 overflow-hidden position-relative" style="background-color: #e2e8f0;">
+                        <!-- Link chuyển sang trang Chi Tiết Khách Sạn -->
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaKS" class="stretched-link"></a>
+
+                        <div class="row g-0">
+                            <!-- Ảnh Khách Sạn -->
+                            <div class="col-md-5">
+                                <img src="@mainImg" class="img-fluid h-100 w-100 object-fit-cover" style="min-height: 200px;" alt="@item.TenKS">
+                            </div>
+
+                            <!-- Thông Tin Khách Sạn -->
+                            <div class="col-md-7 p-3 d-flex flex-column justify-content-between">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <!-- TÊN KHÁCH SẠN -->
+                                        <h5 class="fw-bold mb-1">@item.TenKS</h5>
+                                        <div class="text-warning mb-2">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-purple-score fs-6">8.8 Sao</span>
+                                        <small class="d-block text-muted fw-bold mt-1">10,654 Đánh giá</small>
+                                    </div>
+                                </div>
+                                <p class="text-primary small fw-bold mb-1"><i class="bi bi-geo-alt-fill"></i> @item.DiaDiem</p>
+                                <p class="text-muted extra-small mb-3">@item.DescriptionKS</p>
+                                <div class="text-end mt-auto">
+                                    <small class="text-muted d-block extra-small">Giá mỗi đêm (chưa bao gồm thuế)</small>
+                                    <span class="text-danger fw-bold fs-4">@priceDisplay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">Không tìm thấy khách sạn nào phù hợp với yêu cầu tìm kiếm.</div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-purple-score {
+        background-color: #d8b4fe;
+        color: #581c87;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
+
+    .extra-small {
+        font-size: 0.8rem;
+    }
+</style>
