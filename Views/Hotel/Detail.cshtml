@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewData["Title"] = "Chi tiết khách sạn";
+}
+
+<link rel="stylesheet" href="~/css/hotel-detail.css">
+
+<div class="hotel-detail">
+
+    <div class="container">
+
+        <div class="hotel-header">
+            <h2>The Sóng Vũng Tàu</h2>
+
+            <div class="hotel-location">
+                <i class="fa-solid fa-location-dot"></i>
+                28 Thi Sách, Phường Thắng Tam, Vũng Tàu
+            </div>
+
+            <div class="hotel-rating">
+                ★★★★★
+                <span>9.2 (2.350 đánh giá)</span>
+            </div>
+        </div>
+
+        <div class="gallery">
+
+            <div class="gallery-main">
+                <img src="https://picsum.photos/900/600?1" alt="">
+            </div>
+
+            <div class="gallery-list">
+
+                <img src="https://picsum.photos/300/200?2" alt="">
+
+                <img src="https://picsum.photos/300/200?3" alt="">
+
+                <img src="https://picsum.photos/300/200?4" alt="">
+
+                <img src="https://picsum.photos/300/200?5" alt="">
+
+                <img src="https://picsum.photos/300/200?6" alt="">
+
+                <img src="https://picsum.photos/300/200?7" alt="">
+
+            </div>
+
+        </div>
+
+        <div class="highlight-box">
+
+            <h3>Điểm nổi bật</h3>
+
+            <p>
+                Khách sạn nằm cách bãi biển khoảng 250m, có hồ bơi vô cực,
+                spa, phòng gym, nhà hàng buffet và quầy bar trên tầng thượng.
+            </p>
+
+        </div>
+
+        <div class="facility">
+
+            <h3>Tiện ích</h3>
+
+            <div class="facility-grid">
+
+                <div class="facility-item">
+                    <i class="fa-solid fa-wifi"></i>
+                    WiFi miễn phí
+                </div>
+
+                <div class="facility-item">
+                    <i class="fa-solid fa-water-ladder"></i>
+                    Hồ bơi
+                </div>
+
+                <div class="facility-item">
+                    <i class="fa-solid fa-car"></i>
+                    Bãi đỗ xe
+                </div>
+
+                <div class="facility-item">
+                    <i class="fa-solid fa-dumbbell"></i>
+                    Phòng Gym
+                </div>
+
+                <div class="facility-item">
+                    <i class="fa-solid fa-spa"></i>
+                    Spa
+                </div>
+
+                <div class="facility-item">
+                    <i class="fa-solid fa-utensils"></i>
+                    Nhà hàng
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="room-section">
+
+            <h3>Danh sách phòng</h3>
+
+            <div class="room-card">
+
+                <img src="https://picsum.photos/250/180?11" alt="">
+
+                <div class="room-info">
+
+                    <h4>Deluxe Double Room</h4>
+
+                    <p>2 người lớn • 1 giường đôi • 35m²</p>
+
+                    <p>Có ban công, hướng biển.</p>
+
+                </div>
+
+                <div class="room-price">
+
+                    <h3>1.250.000đ</h3>
+
+                    <p>/ đêm</p>
+
+                    <select class="form-select">
+
+                        <option>1 phòng</option>
+
+                        <option>2 phòng</option>
+
+                        <option>3 phòng</option>
+
+                    </select>
+
+                    <a asp-controller="Booking" asp-action="Index" class="btn-book">
+                        Đặt phòng
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="room-card">
+
+                <img src="https://picsum.photos/250/180?12" alt="">
+
+                <div class="room-info">
+
+                    <h4>Family Suite</h4>
+
+                    <p>4 người lớn • 2 giường lớn • 55m²</p>
+
+                    <p>Phòng rộng, phù hợp gia đình.</p>
+
+                </div>
+
+                <div class="room-price">
+
+                    <h3>2.350.000đ</h3>
+
+                    <p>/ đêm</p>
+
+                    <select class="form-select">
+
+                        <option>1 phòng</option>
+
+                        <option>2 phòng</option>
+
+                    </select>
+
+                    <a asp-controller="Booking" asp-action="Index" class="btn-book">
+                        Đặt phòng
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

@@ -16,5 +16,10 @@ namespace LuxuryHotel.Models
 
         public ICollection<DonDatPhong>? DonDatPhongs { get; set; }
         public ICollection<HoaDon>? HoaDons { get; set; }
+
+        //Bổ sung
+        public string Phone { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
 }

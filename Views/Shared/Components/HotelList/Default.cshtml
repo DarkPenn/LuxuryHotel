@@ -1,0 +1,60 @@
+﻿@model IEnumerable<LuxuryHotel.Models.ViewModels.HotelCardVM>
+
+@foreach (var item in Model)
+{
+    <div class="hotel-item">
+
+        <a asp-controller="Hotel"
+           asp-action="Detail">
+            <img src="@item.Image">
+        </a>
+
+        <div class="hotel-info">
+
+            <h3>
+                <a asp-controller="Hotel"
+                   asp-action="Detail">
+                    @item.Name
+                </a>
+            </h3>
+
+            <div class="stars">
+                @for (int i = 0; i < item.Star; i++)
+                {
+                    @:★
+                }
+            </div>
+
+            <div class="address">
+                📍 @item.Address
+            </div>
+
+            <p>
+                @item.Description
+            </p>
+
+        </div>
+
+        <div class="hotel-right">
+
+            <div class="score">
+                @item.Score <span>Sao</span>
+            </div>
+
+            <div class="review">
+                @item.Review
+            </div>
+
+            <small>
+                Giá mỗi đêm
+                @(item.IncludeTax ? "(đã bao gồm thuế)" : "(chưa bao gồm thuế)")
+            </small>
+
+            <div class="price">
+                @item.Price
+            </div>
+
+        </div>
+
+    </div>
+}
