@@ -34,6 +34,8 @@ namespace LuxuryHotel.Controllers
                 return View();
             }
 
+            HttpContext.Session.SetString("MaKH", user.MaKH);
+
             return RedirectToAction("Index", "Home");
         }
 
