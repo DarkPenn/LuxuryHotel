@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
@@ -25,11 +27,32 @@
                     </div>
                 </div>
 
+                @if (Context.Session.GetString("CustomerId") == null)
+                {
                 <!-- Nút 3: Đăng ký & Đăng nhập -->
                 <div class="d-flex gap-2">
                     <a asp-controller="Account" asp-action="Register" class="btn btn-light custom-nav-btn text-dark">Đăng ký</a>
                     <a asp-controller="Account" asp-action="Login" class="btn btn-light custom-nav-btn text-dark">Đăng nhập</a>
                 </div>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center">
+                        <button class="d-flex gap-2">
+                            👤
+                            <strong>
+                                @Context.Session.GetString("CustomerName")
+                            </strong>
+                        </button>    
+                        <div class="dropdown-content">
+                            <a asp-controller="Account"
+                               asp-action="Logout" class="navbar-brand text-white fw-bold fs-4 me-4 d-flex align-items-center">
+                                <img src="~/Images/logout.png" alt="LogOut Button">
+                            </a>
+                        </div>
+                    </div>
+                    
+                }
             </div>
         </div>
     </header>

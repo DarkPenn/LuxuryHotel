@@ -13,60 +13,30 @@
             <p>Đăng nhập để tiếp tục</p>
         </div>
 
-        <form asp-action="Login" method="post">
-
+        <form asp-controller="Account" asp-action="Login" method="post">
             <div class="form-group">
-
                 <label>Email</label>
 
-                <input type="email"
+                <input type="text"
                        name="Email"
                        class="form-control"
-                       placeholder="Nhập email của bạn"
+                       placeholder="Nhập Email"
                        required />
+            </div>
 
+            <div class="form-group">
                 <label>Mật khẩu</label>
 
                 <input type="password"
-                       name="password"
+                       name="Password"
                        class="form-control"
                        placeholder="Nhập mật khẩu của bạn"
                        required />
             </div>
 
             <button type="submit" class="btn-login">
-                Tiếp tục
+                Đăng nhập
             </button>
-
         </form>      
-
-        <div class="policy">
-
-            Bằng việc tiếp tục, bạn đồng ý với
-
-            <a href="#">Điều khoản sử dụng</a>
-
-            và
-
-            <a href="#">Chính sách bảo mật</a>
-
-            của LX Hotel.
-
-        </div>
-
-        <div class="register">
-
-            Chưa có tài khoản?
-
-            <a asp-controller="Account"
-               asp-action="Register">
-
-                Đăng ký
-
-            </a>
-
-        </div>
-
     </div>
-
 </div>
