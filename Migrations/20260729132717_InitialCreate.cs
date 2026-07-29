@@ -44,7 +44,10 @@ namespace LuxuryHotel.Migrations
                 {
                     MaKH = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     TenKH = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CCCD_CMND_KH = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
+                    CCCD_CMND_KH = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -259,12 +262,12 @@ namespace LuxuryHotel.Migrations
 
             migrationBuilder.InsertData(
                 table: "KhachHangs",
-                columns: new[] { "MaKH", "CCCD_CMND_KH", "TenKH" },
+                columns: new[] { "MaKH", "CCCD_CMND_KH", "Email", "Password", "Phone", "TenKH" },
                 values: new object[,]
                 {
-                    { "KH01", "034567890123", "Phạm Minh D" },
-                    { "KH02", "034567890124", "Hoàng Thị E" },
-                    { "KH03", "034567890125", "Đỗ Văn F" }
+                    { "KH01", "034567890123", "customer@luxuryhotel.com", "123456", "0788811035", "Phạm Minh D" },
+                    { "KH02", "034567890124", "", "", "0788811039", "Hoàng Thị E" },
+                    { "KH03", "034567890125", "", "", "0788811042", "Đỗ Văn F" }
                 });
 
             migrationBuilder.InsertData(
