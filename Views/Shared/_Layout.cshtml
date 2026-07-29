@@ -14,12 +14,12 @@
             <div class="d-flex justify-content-between align-items-center custom-header px-4">
                 <!-- Logo LX Hotel -->
                 <div class="d-flex align-items-center">
-                    <a class="navbar-brand text-white fw-bold fs-4 me-4" asp-controller="Home" asp-action="Index">
-                        <span class="text-primary">LX</span> Hotel
+                    <a class="navbar-brand text-white fw-bold fs-4 me-4 d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                        <img src="~/Images/logoTH.png" alt="LX Hotel Logo">
                     </a>
+    
                     <!-- Nút 1 & 2: Khách Sạn, Phòng -->
                     <div class="d-flex gap-2">
-                        <!-- Đã sửa: Trỏ về Home/Rooms -->
                         <a asp-controller="Hotel" asp-action="Index" class="btn btn-light custom-nav-btn text-dark">Khách Sạn</a>
                         <a asp-controller="Home" asp-action="Rooms" class="btn btn-light custom-nav-btn text-dark">Phòng</a>
                     </div>
