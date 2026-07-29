@@ -1,5 +1,6 @@
 ﻿using LuxuryHotel.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxuryHotel.Controllers
 {
@@ -12,9 +13,23 @@ namespace LuxuryHotel.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string? city)
         {
-            return View();
+            var query = _context.KhachSans
+                .Include(k => k.Phongs)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(city))
+            {
+                // Sửa thành .DiaDiem cho đúng với Model KhachSan
+                query = query.Where(k => k.DiaDiem.Contains(city));
+            }
+
+            var khachSans = await query.ToListAsync();
+
+            ViewBag.SelectedCity = city ?? "Tất cả khu vực";
+
+            return View(khachSans);
         }
 
         public IActionResult Detail()
