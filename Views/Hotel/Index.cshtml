@@ -1,0 +1,111 @@
+﻿﻿@{
+ViewData["Title"] = "Trang chủ";
+}
+
+<!-- Box Tìm Kiếm Trung Tâm -->
+<div class="search-card-container text-center">
+    <h3 class="fw-normal mb-4">Rong chơi bốn phương, giá vẫn "yêu thương"</h3>
+
+    <form asp-controller="Hotel" asp-action="Search" method="get">
+        <!-- Ô Nhập điểm du lịch -->
+        <div class="input-group search-input-group mb-3">
+            <span class="input-group-text bg-white border-0"><i class="bi bi-list"></i></span>
+            <input type="text" name="location" class="form-control" placeholder="Nhập điểm du lịch hoặc tên khách sạn">
+            <span class="input-group-text bg-white border-0"><i class="bi bi-search"></i></span>
+        </div>
+
+        <div class="row g-3 text-start">
+            <!-- Ô Chọn Số người / Số phòng -->
+            <div class="col-md-6">
+                <div class="person-room-box d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-person fs-1 me-3"></i>
+                        <div>
+                            <div class="fw-bold fs-5">1 Người</div>
+                            <div class="text-muted small">1 Phòng</div>
+                        </div>
+                    </div>
+                    <i class="bi bi-caret-down-fill"></i>
+                </div>
+            </div>
+
+            <!-- Ô Bộ Lọc Ngày nhận/trả phòng -->
+            <div class="col-md-6">
+                <div class="mb-2 date-box">
+                    <label class="form-label text-white small mb-1">Nhập ngày nhận phòng</label>
+                    <div class="input-group">
+                        <input type="date" name="checkIn" class="form-control">
+                    </div>
+                </div>
+                <div class="date-box">
+                    <label class="form-label text-white small mb-1">Nhập ngày trả phòng</label>
+                    <div class="input-group">
+                        <input type="date" name="checkOut" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút Tìm Kiếm Nổi -->
+        <button type="submit" class="btn search-btn-floating">Tìm kiếm</button>
+    </form>
+</div>
+
+<!-- Danh Sách Chỗ Nghỉ Nổi Bật -->
+<div class="mt-5 pt-3">
+    <h4 class="fw-bold mb-4">Những chỗ nghỉ nổi bật được đề xuất cho quý khách:</h4>
+
+    <div class="row align-items-center">
+        <div class="col-md-11">
+            <div class="row g-3">
+                <!-- Địa điểm 1 -->
+                <div class="col-md-3">
+                    <a href="/Hotel/Search?location=Đà Nẵng" class="text-decoration-none text-dark">
+                        <div class="destination-card text-center">
+                            <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=500" alt="Đà Nẵng">
+                            <h5 class="fw-bold mt-2 mb-0">Đà Nẵng</h5>
+                            <span class="text-muted small">4,631 chỗ ở</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Địa điểm 2 -->
+                <div class="col-md-3">
+                    <a href="/Hotel/Search?location=Vũng Tàu" class="text-decoration-none text-dark">
+                        <div class="destination-card text-center">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500" alt="Vũng Tàu">
+                            <h5 class="fw-bold mt-2 mb-0">Vũng Tàu</h5>
+                            <span class="text-muted small">4,593 chỗ ở</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Địa điểm 3 -->
+                <div class="col-md-3">
+                    <a href="/Hotel/Search?location=Nha Trang" class="text-decoration-none text-dark">
+                        <div class="destination-card text-center">
+                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500" alt="Nha Trang">
+                            <h5 class="fw-bold mt-2 mb-0">Nha Trang</h5>
+                            <span class="text-muted small">3,531 chỗ ở</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Địa điểm 4 -->
+                <div class="col-md-3">
+                    <a href="/Hotel/Search?location=Hồ Chí Minh" class="text-decoration-none text-dark">
+                        <div class="destination-card text-center">
+                            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=500" alt="Hồ Chí Minh">
+                            <h5 class="fw-bold mt-2 mb-0">Hồ Chí Minh</h5>
+                            <span class="text-muted small">5,521 chỗ ở</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút Mũi Tên Chuyển Slide -->
+        <div class="col-md-1 d-flex justify-content-center">
+            <button class="next-arrow-btn">
+                <i class="bi bi-arrow-right fs-4"></i>
+            </button>
+        </div>
+    </div>
+</div>
