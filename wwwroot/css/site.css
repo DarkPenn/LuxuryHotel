@@ -3,6 +3,12 @@
     background-color: #006b99;
     padding: 12px 20px;
 }
+    .custom-header .navbar-brand img {
+        height: 40px; 
+        width: auto; 
+        object-fit: contain; 
+        display: block;
+    }
 
 .custom-nav-btn {
     border-radius: 20px;
