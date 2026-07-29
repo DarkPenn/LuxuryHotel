@@ -31,9 +31,9 @@ namespace LuxuryHotel.Data
 
             // 4. Khách Hàng
             modelBuilder.Entity<KhachHang>().HasData(
-                new KhachHang { MaKH = "KH01", TenKH = "Phạm Minh D", CCCD_CMND_KH = "034567890123" },
-                new KhachHang { MaKH = "KH02", TenKH = "Hoàng Thị E", CCCD_CMND_KH = "034567890124" },
-                new KhachHang { MaKH = "KH03", TenKH = "Đỗ Văn F", CCCD_CMND_KH = "034567890125" }
+                new KhachHang { MaKH = "KH01", TenKH = "Phạm Minh D", CCCD_CMND_KH = "034567890123", Phone="0788811035", Email = "customer@luxuryhotel.com", Password = "123456"},
+                new KhachHang { MaKH = "KH02", TenKH = "Hoàng Thị E", CCCD_CMND_KH = "034567890124", Phone = "0788811039" },
+                new KhachHang { MaKH = "KH03", TenKH = "Đỗ Văn F", CCCD_CMND_KH = "034567890125", Phone = "0788811042" }
             );
 
             // 5. Khách Sạn
