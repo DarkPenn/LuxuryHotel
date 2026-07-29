@@ -1,31 +1,91 @@
-html {
-  font-size: 14px;
+/* Styling cho Header */
+.custom-header {
+    background-color: #006b99;
+    padding: 12px 20px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.custom-nav-btn {
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-weight: 500;
+    font-size: 14px;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Hero Section & Search Card */
+.search-card-container {
+    background-color: #006b99;
+    border-radius: 40px;
+    padding: 30px 40px 50px 40px;
+    color: white;
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto 30px auto;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.search-input-group {
+    border-radius: 30px;
+    overflow: hidden;
+    background: white;
 }
 
-body {
-  margin-bottom: 60px;
+    .search-input-group input {
+        border: none;
+        box-shadow: none;
+    }
+
+        .search-input-group input:focus {
+            box-shadow: none;
+        }
+
+.person-room-box {
+    background: white;
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 4px;
+    height: 100%;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.date-box input {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.search-btn-floating {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f3eefc;
+    color: #6f42c1;
+    border: 1px solid #d6c5f0;
+    border-radius: 20px;
+    padding: 8px 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .search-btn-floating:hover {
+        background-color: #e2d5f8;
+        color: #593196;
+    }
+
+/* Card Địa Điểm Gợi Ý */
+.destination-card img {
+    border-radius: 4px;
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.next-arrow-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
