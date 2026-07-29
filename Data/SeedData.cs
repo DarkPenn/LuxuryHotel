@@ -31,17 +31,23 @@ namespace LuxuryHotel.Data
 
             // 4. Khách Hàng
             modelBuilder.Entity<KhachHang>().HasData(
-                new KhachHang { MaKH = "KH01", TenKH = "Phạm Minh D", CCCD_CMND_KH = "034567890123", Phone="0788811035", Email = "customer@luxuryhotel.com", Password = "123456"},
+                new KhachHang { MaKH = "KH01", TenKH = "Phạm Minh D", CCCD_CMND_KH = "034567890123", Phone = "0788811035", Email = "customer@luxuryhotel.com", Password = "123456" },
                 new KhachHang { MaKH = "KH02", TenKH = "Hoàng Thị E", CCCD_CMND_KH = "034567890124", Phone = "0788811039" },
                 new KhachHang { MaKH = "KH03", TenKH = "Đỗ Văn F", CCCD_CMND_KH = "034567890125", Phone = "0788811042" }
             );
 
-            // 5. Khách Sạn
+            // 5. Khách Sạn (Giữ 4 KS cũ + Thêm 4 KS mới thuộc đúng 4 khu vực)
             modelBuilder.Entity<KhachSan>().HasData(
                 new KhachSan { MaKS = "KS01", TenKS = "LX Hotel Đà Nẵng", DiaDiem = "Đà Nẵng", DescriptionKS = "Khách sạn nghỉ dưỡng 5 sao sát biển Mỹ Khê." },
                 new KhachSan { MaKS = "KS02", TenKS = "LX Hotel Vũng Tàu", DiaDiem = "Vũng Tàu", DescriptionKS = "Tận hưởng không khí biển tươi mát cùng dịch vụ cao cấp." },
                 new KhachSan { MaKS = "KS03", TenKS = "LX Hotel Nha Trang", DiaDiem = "Nha Trang", DescriptionKS = "Khách sạn hiện đại nằm ngay trung tâm thành phố biển." },
-                new KhachSan { MaKS = "KS04", TenKS = "LX Hotel Hồ Chí Minh", DiaDiem = "Hồ Chí Minh", DescriptionKS = "Sang trọng, đẳng cấp tọa lạc tại trung tâm Quận 1." }
+                new KhachSan { MaKS = "KS04", TenKS = "LX Hotel Hồ Chí Minh", DiaDiem = "Hồ Chí Minh", DescriptionKS = "Sang trọng, đẳng cấp tọa lạc tại trung tâm Quận 1." },
+
+                // 4 Khách sạn bổ sung thêm
+                new KhachSan { MaKS = "KS05", TenKS = "LX Luxury Resort Vũng Tàu", DiaDiem = "Vũng Tàu", DescriptionKS = "Khu nghỉ dưỡng cao cấp với hồ bơi vô cực nhìn ra Bãi Sau." },
+                new KhachSan { MaKS = "KS06", TenKS = "LX Beachfront Hotel Nha Trang", DiaDiem = "Nha Trang", DescriptionKS = "Tọa lạc tại vị trí vàng đường Trần Phú, tầm nhìn toàn cảnh vịnh." },
+                new KhachSan { MaKS = "KS07", TenKS = "LX Riverside Hotel Đà Nẵng", DiaDiem = "Đà Nẵng", DescriptionKS = "Nằm bên bờ sông Hàn thơ mộng, gần cầu Tình Yêu và Cầu Rồng." },
+                new KhachSan { MaKS = "KS08", TenKS = "LX Suite Hotel Hồ Chí Minh", DiaDiem = "Hồ Chí Minh", DescriptionKS = "Khách sạn căn hộ cao cấp ngay trung tâm Quận 1 sầm uất." }
             );
 
             // 6. Phòng
@@ -49,7 +55,13 @@ namespace LuxuryHotel.Data
                 new Phong { MaPhong = "P101", LoaiPhong = "Deluxe Ocean", Gia = 1200000m, SoNguoi = 2, DescriptionPhong = "Phòng hướng biển ban công rộng", TrangThaiPhong = "Trống", MaKS = "KS01" },
                 new Phong { MaPhong = "P102", LoaiPhong = "Suite VIP", Gia = 2500000m, SoNguoi = 4, DescriptionPhong = "Phòng VIP đầy đủ tiện nghi xa hoa", TrangThaiPhong = "Có Khách", MaKS = "KS01" },
                 new Phong { MaPhong = "P201", LoaiPhong = "Standard Double", Gia = 900000m, SoNguoi = 2, DescriptionPhong = "Phòng tiêu chuẩn ấm cúng", TrangThaiPhong = "Trống", MaKS = "KS02" },
-                new Phong { MaPhong = "P301", LoaiPhong = "Presidential Suite", Gia = 5000000m, SoNguoi = 4, DescriptionPhong = "Phòng Tổng Thống đẳng cấp bậc nhất", TrangThaiPhong = "Thiết Hại", MaKS = "KS03" }
+                new Phong { MaPhong = "P301", LoaiPhong = "Presidential Suite", Gia = 2100000m, SoNguoi = 4, DescriptionPhong = "Phòng Tổng Thống đẳng cấp bậc nhất", TrangThaiPhong = "Thiết Hại", MaKS = "KS03" },
+
+                // Phòng cho các khách sạn mới
+                new Phong { MaPhong = "P501", LoaiPhong = "Villa Ocean View", Gia = 1450000m, SoNguoi = 4, DescriptionPhong = "Villa cao cấp view biển Bãi Sau", TrangThaiPhong = "Trống", MaKS = "KS05" },
+                new Phong { MaPhong = "P601", LoaiPhong = "Deluxe Sea View", Gia = 1850000m, SoNguoi = 2, DescriptionPhong = "Phòng view biển ngắm trọn Vịnh Nha Trang", TrangThaiPhong = "Trống", MaKS = "KS06" },
+                new Phong { MaPhong = "P701", LoaiPhong = "Riverfront Suite", Gia = 1650000m, SoNguoi = 2, DescriptionPhong = "Phòng view sông Hàn và Cầu Rồng", TrangThaiPhong = "Trống", MaKS = "KS07" }
+                // KS04 & KS08 thuộc TP.HCM không thêm phòng để giá tự động hiển thị "Liên hệ"!
             );
 
             // 7. Bình Luận

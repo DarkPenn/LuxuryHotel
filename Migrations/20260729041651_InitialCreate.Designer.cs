@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LuxuryHotel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260729132717_InitialCreate")]
+    [Migration("20260729041651_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -358,18 +358,6 @@ namespace LuxuryHotel.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TenKH")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -384,27 +372,18 @@ namespace LuxuryHotel.Migrations
                         {
                             MaKH = "KH01",
                             CCCD_CMND_KH = "034567890123",
-                            Email = "customer@luxuryhotel.com",
-                            Password = "123456",
-                            Phone = "0788811035",
                             TenKH = "Phạm Minh D"
                         },
                         new
                         {
                             MaKH = "KH02",
                             CCCD_CMND_KH = "034567890124",
-                            Email = "",
-                            Password = "",
-                            Phone = "0788811039",
                             TenKH = "Hoàng Thị E"
                         },
                         new
                         {
                             MaKH = "KH03",
                             CCCD_CMND_KH = "034567890125",
-                            Email = "",
-                            Password = "",
-                            Phone = "0788811042",
                             TenKH = "Đỗ Văn F"
                         });
                 });

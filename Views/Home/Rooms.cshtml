@@ -1,0 +1,159 @@
+﻿@model IEnumerable<LuxuryHotel.Models.KhachSan>
+
+@{
+    ViewData["Title"] = "Danh sách khách sạn";
+}
+
+<div class="container my-4">
+    <!-- Header Chọn Khu Vực -->
+    <div class="p-3 mb-4 rounded text-white d-flex gap-3 align-items-center" style="background-color: #005c9e;">
+        <span class="fw-bold me-2">Chọn khu vực:</span>
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle rounded-pill fw-bold text-primary px-4" type="button" data-bs-toggle="dropdown">
+                @(ViewBag.SelectedCity ?? "Tất cả khu vực")
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Rooms">Tất cả khu vực</a></li>
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Rooms" asp-route-city="Vũng Tàu">Vũng Tàu</a></li>
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Rooms" asp-route-city="Nha Trang">Nha Trang</a></li>
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Rooms" asp-route-city="Đà Nẵng">Đà Nẵng</a></li>
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Rooms" asp-route-city="Hồ Chí Minh">TP. Hồ Chí Minh</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <h4 class="fw-bold mb-4">Danh sách khách sạn tại @(ViewBag.SelectedCity ?? "tất cả các địa điểm")</h4>
+
+    <div class="row">
+        <div class="col-12">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    // 1. Tính giá phòng thấp nhất từ DB
+                    decimal minPrice = item.Phongs != null && item.Phongs.Any() 
+                        ? item.Phongs.Min(p => p.Gia) 
+                        : 0;
+
+                    // 2. Cấu hình Link Ảnh Mạng & Giá hiển thị theo Mã Khách Sạn
+                    string mainImg = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600"; // Link dự phòng
+                    string priceDisplay = "";
+
+                    // ĐÀ NẴNG
+                    if (item.MaKS == "KS01") 
+                    {
+                        mainImg = "https://pix8.agoda.net/hotelImages/533079/0/9b655c1b0ada7a5e76651ab4e506dc21.png?ce=3&s=1024x";
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "1.200.000 VND";
+                    }
+                    else if (item.MaKS == "KS07") 
+                    {
+                        mainImg = "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/481263414.jpg?k=1ea58937c9a1fc849bde0712ba6807b12f9b61dc340cbcbd843dd84d3d7f0474&o=&s=1024x";
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "1.650.000 VND";
+                    }
+                    // VŨNG TÀU
+                    else if (item.MaKS == "KS02") 
+                    {
+                        mainImg = "https://pix8.agoda.net/hotelImages/89090330/0/36acced664c5db2984ae2779a20570e3.jpg?ce=3&s=1024x";
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "900.000 VND";
+                    }
+                    else if (item.MaKS == "KS05") 
+                    {
+                        mainImg = "https://pix8.agoda.net/hotelImages/31965669/0/1ba6c538f568d0be2a371ae9d4a8e059.png?ca=29&ce=0&s=1024x";
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "1.450.000 VND";
+                    }
+                    // NHA TRANG
+                    else if (item.MaKS == "KS03") 
+                    {
+                        mainImg = "https://pix8.agoda.net/hotelImages/1370938/9429410/bdf358280db48d5e196034e8a0abac4a.jpeg?ce=0&s=1024x";
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "2.100.000 VND";
+                    }
+                    else if (item.MaKS == "KS06") 
+                    {
+                        mainImg = "https://pix8.agoda.net/hotelImages/13486290/-1/d8183602be2644495e78b139af441f95.jpg?ca=15&ce=1&s=1024x";
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "1.850.000 VND";
+                    }
+                    // TP. HỒ CHÍ MINH (KS04, KS08) -> Hiển thị "Liên hệ"
+                    else if (item.MaKS == "KS04" || item.MaKS == "KS08" || item.DiaDiem.Contains("Hồ Chí Minh") || item.DiaDiem.Contains("TP.HCM")) 
+                    {
+                        if (item.MaKS == "KS04") mainImg = "https://pix8.agoda.net/hotelImages/62697262/0/5d00a964350ae460a1be0d0bf12148c3.jpg?ce=3&s=1024x";
+                        else if (item.MaKS == "KS08") mainImg = "https://pix8.agoda.net/hotelImages/788687/-1/6750b024c8d90cbfdff5846f5c925933.jpg?ca=17&ce=1&s=1024x";
+
+                        priceDisplay = "Liên hệ";
+                    }
+                    else
+                    {
+                        priceDisplay = minPrice > 0 ? minPrice.ToString("N0") + " VND" : "Liên hệ";
+                    }
+
+                    <div class="card mb-4 border-0 shadow-sm rounded-3 overflow-hidden" style="background-color: #e2e8f0;">
+                        <div class="row g-0">
+                            <!-- Ảnh đại diện khách sạn (Đã bỏ 4 ảnh nhỏ) -->
+                            <div class="col-md-5">
+                                <img src="@mainImg" 
+                                     class="img-fluid h-100 w-100 object-fit-cover" 
+                                     style="min-height: 210px; max-height: 240px;" 
+                                     alt="@item.TenKS"
+                                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600';">
+                            </div>
+
+                            <!-- Thông tin chi tiết khách sạn -->
+                            <div class="col-md-7 p-3 d-flex flex-column justify-content-between">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="fw-bold mb-1">@item.TenKS</h5>
+                                        <div class="text-warning mb-2">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-purple-score fs-6">8.3 Sao</span>
+                                        <small class="d-block text-muted fw-bold mt-1">12 Đánh giá</small>
+                                    </div>
+                                </div>
+
+                                <p class="text-primary small fw-bold mb-1">
+                                    <i class="bi bi-geo-alt-fill"></i> @item.DiaDiem
+                                </p>
+
+                                <p class="text-muted extra-small mb-3">
+                                    @item.DescriptionKS
+                                </p>
+
+                                <div class="text-end mt-auto">
+                                    <small class="text-muted d-block extra-small">
+                                        @(priceDisplay == "Liên hệ" ? "Giá phòng" : "Giá mỗi đêm (chưa bao gồm thuế)")
+                                    </small>
+                                    <span class="text-danger fw-bold fs-4">
+                                        @priceDisplay
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    Không tìm thấy khách sạn nào ở khu vực này.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-purple-score {
+        background-color: #d8b4fe;
+        color: #581c87;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
+    .extra-small {
+        font-size: 0.8rem;
+    }
+</style>
