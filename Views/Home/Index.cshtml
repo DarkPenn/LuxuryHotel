@@ -2,6 +2,15 @@
     ViewData["Title"] = "Trang chủ";
 }
 
+<!-- Hiển thị thông báo lỗi ngày sai điều kiện -->
+@if (ViewBag.DateError != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show text-center fw-bold shadow-sm mb-4 rounded-3" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @ViewBag.DateError
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <!-- Box Tìm Kiếm Trung Tâm -->
 <div class="search-card-container text-center">
     <h3 class="fw-normal mb-4">Rong chơi bốn phương, giá vẫn "yêu thương"</h3>

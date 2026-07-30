@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Chi tiết - " + Model.TenKS;
 
-    // Tự động gán tên hiển thị đại diện tương ứng theo từng mã khách sạn (khớp 100% với Rooms.cshtml)
+    // Tự động gán tên hiển thị đại diện tương ứng theo từng mã khách sạn
     string tenPhongDisplay = itemTitle(Model.MaKS, Model.Phongs);
 
     string itemTitle(string maKS, IEnumerable<LuxuryHotel.Models.Phong>? phongs)
@@ -20,7 +20,7 @@
         return (phongs != null && phongs.Any()) ? phongs.First().LoaiPhong : "Phòng Tiêu Chuẩn";
     }
 
-    // Cấu hình danh sách 7 ảnh linh hoạt cho từng khách sạn (1 ảnh lớn + 6 ảnh nhỏ)
+    // Cấu hình danh sách 7 ảnh linh hoạt cho từng khách sạn
     List<string> images = new List<string>();
 
     if (Model.MaKS == "KS01") // Đà Nẵng (KS01)
@@ -63,45 +63,19 @@
         images.Add("https://pix8.agoda.net/hotelImages/62697262/0/1b5becd7e64e544b76b71b67135df179.jpg?ce=2&s=1024x");
         images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/590577821.jpg?k=1b9546d055333b76d2b1397b9af0d031dba21116af17950e463d800309d90a8f&o=&s=1024x");
     }
-    else if (Model.MaKS == "KS05")
-    {
-        images.Add("https://pix8.agoda.net/hotelImages/31965669/0/1ba6c538f568d0be2a371ae9d4a8e059.png?ca=29&ce=0&s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/31965669/0/d07a1cf12584c5fec3c100627fce4c87.png?ca=29&ce=0&s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/31965669/0/9a9a89e46e6475e4ee93ceadbee6923c.png?ca=29&ce=0&s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/31965669/512466578/3369b647d56c7c9179dac8c7756a9a19.png?ca=29&ce=0&s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/31965669/512466578/a99b50ede6a407a02dc0fb3b89def355.jpg?ca=29&ce=0&s=1024x");
-        images.Add("https://pix8.agoda.net/geo/poi/1442914/2_1442914_04.jpg?ca=7&ce=1&s=1024x");
-        images.Add("https://pix8.agoda.net/geo/poi/100212/2_100212.jpg?ca=6&ce=1&s=1024x");
-    }
-    else if (Model.MaKS == "KS06")
-    {
-        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/d8183602be2644495e78b139af441f95.jpg?ca=15&ce=1&s=1024x");
-        images.Add("https://pix8.agoda.net/property/13486290/0/6d9bdcbf965829cf9ddecc9e7a6c2c3b.jpeg?s=1024x");
-        images.Add("https://pix8.agoda.net/property/13486290/0/10240af479e54eb39eec1e40e0e182c1.jpeg?s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/9460013311412a1b7bfa2530d0e90b8d.jpg?ca=10&ce=1&s=1024x");
-        images.Add("https://pix8.agoda.net/property/13486290/0/90dc9d2a0776950a5ffe6e437f4e3ea8.jpeg?ce=3&s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/694c7a228ef4956fe63093acffce4cf7.jpg?ca=10&ce=1&s=1024x");
-        images.Add("https://pix8.agoda.net/hotelImages/13486290/-1/cddeeb316c4cf548094f2385d19a2f50.jpg?ca=10&ce=1&s=1024x");
-    }
-    else if (Model.MaKS == "KS07")
-    {
-        images.Add("https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/481263414.jpg?k=1ea58937c9a1fc849bde0712ba6807b12f9b61dc340cbcbd843dd84d3d7f0474&o=&s=1024x");
-        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263463.jpg?k=f7a1f57cf99db0bdaff47c5dce0859418cbef740c5c8245b2356bebbe3187414&o=");
-        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263474.jpg?k=cc1a67ab9aba5ca75ff3182b074106ceb4f28da533219e5704c037649068edda&o=");
-        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263492.jpg?k=256ea142d9a3e19a0b8b375c1a380d6c8b36ea7afd681d5d16e86166b003dd2b&o=");
-        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263488.jpg?k=8fbc3edc59bbf00ff37feb5e51f812689edee2251b9df6d645def69b93a2eacf&o=");
-        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263479.jpg?k=cbbb162cde9242a36e53cfc370aaf3e16b5954c0ab76bf0c7b17c71cd5f4c249&o=");
-        images.Add("https://cf.bstatic.com/xdata/images/hotel/max1024x768/481263466.jpg?k=7f18b0d7d391fce8a6aa6c49359e514a8191a1d203deab9318d8ffbc20c6eb45&o=");
-    }
     else
     {
-        // Bộ ảnh mặc định
         for (int i = 0; i < 7; i++) images.Add("https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600");
     }
+
+    // Lọc danh sách phòng còn trống
+    var phongsConTrong = Model.Phongs != null
+        ? Model.Phongs.Where(p => string.Equals(p.TrangThaiPhong, "Trống", StringComparison.OrdinalIgnoreCase)).ToList()
+        : new List<LuxuryHotel.Models.Phong>();
 }
 
 <div class="container my-4">
-    <!-- 1. Lưới hình ảnh khách sạn (1 Ảnh lớn bên trái + 6 Ảnh nhỏ bên phải) -->
+    <!-- 1. Lưới hình ảnh khách sạn -->
     <div class="row g-2 mb-4">
         <!-- 1 Ảnh lớn -->
         <div class="col-md-6">
@@ -111,7 +85,7 @@
                  alt="@tenPhongDisplay"
                  onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800';">
         </div>
-        <!-- 6 Ảnh nhỏ (2 hàng x 3 cột) -->
+        <!-- 6 Ảnh nhỏ -->
         <div class="col-md-6">
             <div class="row g-2">
                 @for (int i = 1; i <= 6; i++)
@@ -128,7 +102,7 @@
         </div>
     </div>
 
-    <!-- Tên Phòng Hiển Thị Chính -->
+    <!-- Tên Khách Sạn / Phòng Display -->
     <h3 class="fw-bold mb-4">@tenPhongDisplay (@Model.TenKS)</h3>
 
     <!-- 2. Khung Điểm nổi bật nhất -->
@@ -141,7 +115,7 @@
         <p class="mb-0 small"><strong>Tầm nhìn đẹp</strong></p>
     </div>
 
-    <!-- 3. Khung Cơ sở vật chất (Dạng lưới Grid chia đều) -->
+    <!-- 3. Khung Cơ sở vật chất -->
     <div class="border border-dark rounded-3 p-3 mb-4 bg-white">
         <h6 class="fw-bold mb-3">Cơ sở vật chất</h6>
         <div class="row g-3 small fw-bold">
@@ -156,11 +130,25 @@
         </div>
     </div>
 
-    <!-- 4, 5 & 6. Phân hệ chọn phòng -->
+    <!-- 4. Danh sách phòng của Khách sạn -->
+    <h5 class="fw-bold mb-3">Danh sách phòng:</h5>
+
     @if (Model.Phongs != null && Model.Phongs.Any())
     {
         @foreach (var phong in Model.Phongs)
         {
+            // 1. Tính tổng số đơn đã đặt của phòng này
+            int soDonDaDat = phong.DonDatPhongs != null ? phong.DonDatPhongs.Count : 0;
+
+            // Giả định tổng số lượng phòng sẵn có của loại này trong khách sạn là 3 phòng
+            int tongSoPhong = 3;
+
+            // 2. Tính số lượng phòng CÒN LẠI thực tế
+            int soPhongConLai = tongSoPhong - soDonDaDat;
+            if (soPhongConLai < 0) soPhongConLai = 0;
+
+            bool isAvailable = soPhongConLai > 0;
+
             <div class="border border-dark rounded-3 mb-4 bg-white overflow-hidden">
                 <div class="row g-0 align-items-center">
                     <!-- Chi tiết ảnh phòng -->
@@ -171,9 +159,26 @@
                              alt="@phong.LoaiPhong">
                     </div>
 
-                    <!-- Tiêu chuẩn phòng -->
+                    <!-- Thông tin & Trạng thái còn lại -->
                     <div class="col-md-4 p-3 border-end border-dark">
                         <h6 class="fw-bold mb-2">Tiêu chuẩn phòng: @phong.LoaiPhong</h6>
+
+                        <!-- Hiển thị badge theo số lượng còn lại -->
+                        <div class="mb-2">
+                            @if (isAvailable)
+                            {
+                                <span class="badge bg-success px-3 py-1">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Còn trống (@soPhongConLai phòng)
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger px-3 py-1">
+                                    <i class="bi bi-x-circle-fill me-1"></i> Hết phòng
+                                </span>
+                            }
+                        </div>
+
                         <p class="mb-1 extra-small text-muted"><i class="bi bi-person-fill"></i> @phong.SoNguoi Người lớn</p>
                         <ul class="list-unstyled extra-small mb-0 text-dark">
                             <li>• Có ăn sáng</li>
@@ -195,27 +200,38 @@
                         </span>
                     </div>
 
-                    <!-- Khung chọn số lượng phòng & Button [Đặt phòng] -->
+                    <!-- Khung Chọn Số Lượng & Nút Đặt Phòng -->
                     <div class="col-md-3 p-3 text-center d-flex flex-column align-items-center justify-content-center gap-3">
-                        <!-- Chọn số lượng phòng -->
-                        <div class="dropdown">
-                            <select class="form-select rounded-pill text-center custom-select-box px-3 py-1" style="width: 170px;">
-                                <option value="1" selected>Số lượng phòng ⌵</option>
-                                <option value="1">1 Phòng</option>
-                                <option value="2">2 Phòng</option>
-                                <option value="3">3 Phòng</option>
-                            </select>
-                        </div>
+                        @if (isAvailable)
+                        {
+                            <!-- Dynamic Dropdown: Chỉ render ra tối đa bằng với soPhongConLai -->
+                            <div class="dropdown">
+                                <select class="form-select rounded-pill text-center custom-select-box px-3 py-1" style="width: 170px;">
+                                    <option value="1" selected>Số lượng phòng ⌵</option>
+                                    @for (int i = 1; i <= soPhongConLai; i++)
+                                    {
+                                        <option value="@i">@i Phòng</option>
+                                    }
+                                </select>
+                            </div>
 
-                        <!-- Button Đặt phòng trỏ sang BookingController -->
-                        <a asp-controller="Booking"
-                           asp-action="Create"
-                           asp-route-maKS="@Model.MaKS"
-                           asp-route-maPhong="@phong.MaPhong"
-                           class="btn btn-secondary rounded-pill px-4 py-2 custom-btn-booking d-flex align-items-center justify-content-center"
-                           style="width: 170px; background-color: #d1d5db; color: #000; border: none; text-decoration: none;">
-                            Đặt phòng
-                        </a>
+                            <a asp-controller="Booking"
+                               asp-action="Create"
+                               asp-route-maKS="@Model.MaKS"
+                               asp-route-maPhong="@phong.MaPhong"
+                               class="btn btn-secondary rounded-pill px-4 py-2 custom-btn-booking d-flex align-items-center justify-content-center"
+                               style="width: 170px; background-color: #d1d5db; color: #000; border: none; text-decoration: none;">
+                                Đặt phòng
+                            </a>
+                        }
+                        else
+                        {
+                            <!-- Khi đã hết sạch cả 3 phòng -->
+                            <button class="btn btn-secondary rounded-pill px-4 py-2 d-flex align-items-center justify-content-center disabled"
+                                    style="width: 170px; background-color: #9ca3af; color: #fff; border: none; cursor: not-allowed;" disabled>
+                                Hết phòng
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
@@ -223,48 +239,7 @@
     }
     else
     {
-        <!-- Trường hợp chưa có thông tin phòng trong DB -->
-        <div class="border border-dark rounded-3 mb-4 bg-white overflow-hidden">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-3">
-                    <img src="@images[0]" class="img-fluid w-100 h-100 object-fit-cover" style="min-height: 190px;" alt="Phòng mẫu">
-                </div>
-                <div class="col-md-4 p-3 border-end border-dark">
-                    <h6 class="fw-bold mb-2">Tiêu chuẩn phòng: @tenPhongDisplay</h6>
-                    <p class="mb-1 extra-small text-muted"><i class="bi bi-person-fill"></i> 2 Người lớn</p>
-                    <ul class="list-unstyled extra-small mb-0 text-dark">
-                        <li>• Có ăn sáng</li>
-                        <li>• Quầy bar mini miễn phí</li>
-                        <li>• Vào hồ bơi miễn phí</li>
-                        <li>• Phòng tập</li>
-                        <li>• Wifi miễn phí</li>
-                    </ul>
-                </div>
-                <div class="col-md-2 p-3 text-center border-end border-dark">
-                    <span class="d-block fw-bold small mb-2">Giá / Đêm</span>
-                    <small class="text-danger d-block extra-small fw-bold">Giá từ</small>
-                    <span class="text-danger fw-bold fs-5">
-                        @(Model.MaKS == "KS04" || Model.MaKS == "KS08" || Model.DiaDiem.Contains("Hồ Chí Minh") || Model.DiaDiem.Contains("TP.HCM") ? "Liên hệ" : "1.500.000 VND")
-                    </span>
-                </div>
-                <div class="col-md-3 p-3 text-center d-flex flex-column align-items-center justify-content-center gap-3">
-                    <select class="form-select rounded-pill text-center custom-select-box px-3 py-1" style="width: 170px;">
-                        <option value="1" selected>Số lượng phòng ⌵</option>
-                        <option value="1">1 Phòng</option>
-                        <option value="2">2 Phòng</option>
-                        <option value="3">3 Phòng</option>
-                    </select>
-                    <a asp-controller="Booking"
-                       asp-action="Create"
-                       asp-route-maKS="@Model.MaKS"
-                       asp-route-maPhong="P101"
-                       class="btn btn-secondary rounded-pill px-4 py-2 custom-btn-booking d-flex align-items-center justify-content-center"
-                       style="width: 170px; background-color: #d1d5db; color: #000; border: none; text-decoration: none;">
-                        Đặt phòng
-                    </a>
-                </div>
-            </div>
-        </div>
+        <div class="alert alert-warning text-center">Khách sạn này hiện chưa có thông tin phòng.</div>
     }
 </div>
 

@@ -19,12 +19,13 @@ namespace LuxuryHotel.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(string maKS, string maPhong)
         {
-            // 1. Kiểm tra Đăng nhập qua Session
+            // 1. Kiểm tra Đăng nhập qua Session "MaKH"
             string? maKH = HttpContext.Session.GetString("MaKH");
             if (string.IsNullOrEmpty(maKH))
             {
-                // Chưa đăng nhập -> Chuyển hướng sang trang Login
-                return RedirectToAction("Login", "Account");
+                // Tạo đường dẫn hiện tại kèm tham số để đăng nhập xong tự nhảy về lại đúng trang này
+                string currentUrl = Url.Action("Create", "Booking", new { maKS = maKS, maPhong = maPhong }) ?? "/";
+                return RedirectToAction("Login", "Account", new { returnUrl = currentUrl });
             }
 
             var khachHang = await _context.KhachHangs.FirstOrDefaultAsync(k => k.MaKH == maKH);
@@ -48,7 +49,7 @@ namespace LuxuryHotel.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // 2. Validate dữ liệu theo yêu cầu đề bài
+            // Validate dữ liệu
             if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
             {
                 ModelState.AddModelError("Email", "Email không hợp lệ (bắt buộc chứa ký tự @).");
@@ -59,7 +60,7 @@ namespace LuxuryHotel.Controllers
                 ModelState.AddModelError("Phone", "Số điện thoại chỉ bao gồm ký tự số và độ dài từ 9 đến 11 chữ số.");
             }
 
-            var phong = await _context.Phongs.FirstOrDefaultAsync(p => p.MaPhong == maPhong);
+            var phong = await _context.Phongs.FirstOrDefaultAsync(p => p.MaPhong == maPhong && p.MaKS == maKS);
             var khachSan = await _context.KhachSans.FirstOrDefaultAsync(k => k.MaKS == maKS);
             var khachHang = await _context.KhachHangs.FirstOrDefaultAsync(k => k.MaKH == maKH);
 
@@ -71,7 +72,7 @@ namespace LuxuryHotel.Controllers
                 return View();
             }
 
-            // 3. Tạo Mã đơn tự động (ví dụ: D03, D04...)
+            // Tạo Mã đơn tự động
             int count = await _context.DonDatPhongs.CountAsync() + 1;
             string newMaD = "D" + count.ToString("D2");
 
@@ -83,17 +84,23 @@ namespace LuxuryHotel.Controllers
                 NgayTraPhong = DateTime.Now.AddDays(1),
                 TrangThaiDonDatPhong = "Đã đặt trước",
                 MaKH = maKH,
-                MaPhong = maPhong ?? "P101",
-                MaKS = maKS ?? "KS01"
+                MaPhong = maPhong,
+                MaKS = maKS
             };
 
             _context.DonDatPhongs.Add(donDatPhong);
+
+            // 👉 CHỈ CẬP NHẬT TRẠNG THÁI CHO CHÍNH PHÒNG ĐƯỢC CHỌN (maPhong)
+            if (phong != null)
+            {
+                phong.TrangThaiPhong = "Có Khách"; // Đánh dấu phòng này đã được đặt
+                _context.Phongs.Update(phong);
+            }
+
             await _context.SaveChangesAsync();
 
-            // Lưu thông báo thành công vào TempData để kích hoạt popup
             TempData["SuccessMessage"] = "Đặt phòng thành công! Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi.";
 
-            // Chuyển hướng về trang chủ
             return RedirectToAction("Index", "Home");
         }
     }

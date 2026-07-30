@@ -30,6 +30,17 @@ namespace LuxuryHotel.Controllers
             bool danhGiaCao = false,
             bool anSang = false)
         {
+
+            if (checkIn.HasValue && checkOut.HasValue && checkIn > checkOut)
+            {
+                if (checkIn.Value >= checkOut.Value)
+                {
+                    ViewBag.DateError = "Ngày check-in phải trước ngày check-out.";
+                    return View("Index");
+                }    
+               
+            }
+
             var query = _context.KhachSans
                 .Include(k => k.Phongs)
                 .AsQueryable();
@@ -47,6 +58,8 @@ namespace LuxuryHotel.Controllers
             {
                 resultList = resultList.OrderBy(k => k.Phongs != null && k.Phongs.Any() ? k.Phongs.Min(p => p.Gia) : 0).ToList();
             }
+
+
 
             // Truyền thông số sang View
             ViewBag.Location = string.IsNullOrWhiteSpace(location) ? "Tất cả địa điểm" : location;
@@ -91,6 +104,7 @@ namespace LuxuryHotel.Controllers
 
             var khachSan = await _context.KhachSans
                 .Include(k => k.Phongs)
+                .ThenInclude(p => p.DonDatPhongs)
                 .FirstOrDefaultAsync(k => k.MaKS == id);
 
             if (khachSan == null)

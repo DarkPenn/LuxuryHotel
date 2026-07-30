@@ -52,15 +52,15 @@
             <div class="row g-3">
                 <!-- Tên * -->
                 <div class="col-md-6">
-                    <input type="text" name="ten" class="form-control custom-input" placeholder="Tên *" value="@ten" required>
+                    <input type="text" name="ten" class="form-control custom-input" placeholder="Tên *" value="@ten" maxlength="20" required>
                 </div>
                 <!-- Họ * -->
                 <div class="col-md-6">
-                    <input type="text" name="ho" class="form-control custom-input" placeholder="Họ (VD: Nguyen) *" value="@ho" required>
+                    <input type="text" name="ho" class="form-control custom-input" placeholder="Họ (VD: Nguyen) *" value="@ho" maxlength="20" required>
                 </div>
                 <!-- Email ID * -->
                 <div class="col-md-6">
-                    <input type="email" name="email" class="form-control custom-input" placeholder="Email ID *" value="@(kh?.Email)" required>
+                    <input type="email" name="email" class="form-control custom-input" placeholder="Email ID *" value="@(kh?.Email)" maxlength="20" required>
                 </div>
                 <!-- Quốc gia * -->
                 <div class="col-md-6">
@@ -74,7 +74,7 @@
                 </div>
                 <!-- Số điện thoại di động * -->
                 <div class="col-md-6">
-                    <input type="tel" name="phone" class="form-control custom-input" placeholder="Số điện thoại di động*" value="@(kh?.Phone)" required>
+                    <input type="tel" name="phone" class="form-control custom-input" placeholder="Số điện thoại di động*" value="@(kh?.Phone)" maxlength="10" required>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
             <p class="text-secondary extra-small mb-3">Hãy cho chúng tôi biết về sở thích của quý khách. Phụ thuộc vào tình trạng thực tế.</p>
 
             <div>
-                <textarea name="note" class="form-control custom-input" rows="4" placeholder="Note *"></textarea>
+                <textarea name="note" class="form-control custom-input" rows="4" placeholder="Note *" maxlength="200" required></textarea>
             </div>
         </div>
 
