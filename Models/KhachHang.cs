@@ -8,7 +8,7 @@ namespace LuxuryHotel.Models
         [StringLength(10)]
         public string MaKH { get; set; } = null!;
 
-        [StringLength(50)]
+        [StringLength(20, ErrorMessage = "Tên khách hàng phải từ 20 ký tự trở xuống")]
         public string TenKH { get; set; } = null!;
 
         [Required(ErrorMessage = "Vui lòng nhập CCCD/CMND")]
@@ -23,6 +23,8 @@ namespace LuxuryHotel.Models
         [RegularExpression(@"^0\d{9}$", ErrorMessage = "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0")]
         public string Phone { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
+
+        [StringLength(20, ErrorMessage = "Mật khẩu phải từ 20 ký tự trở xuống")]
         public string Password { get; set; } = string.Empty;
     }
 }
